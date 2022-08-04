@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Weather forecast app</title>
+        <link rel="stylesheet" type="text/css" href= "{{ url_for('static',filename='styles/mainpage.css') }}">
+    </head>
+    <body>
+        <div class="form">
+            <form action="" method="post" novalidate>
+                {{ form.hidden_tag() }}
+                <p class="form1">
+                    {{ form.city_name.label }}<br>
+                    {{ form.city_name(size=32) }}<br>
+                    {% for error in form.city_name.errors %}
+                    <span> style="color: red;"[{{ error }}]</span>
+                    {% endfor %}
+                </p><p class="form1">{{ form.submit() }}</p>
+            </form>
+        </div>
+        <div class="result">
+            {% if show %}
+            {% for x in weather %}
+            <div class="data">
+                <div class="parent">
+                    <p class="city">{{ x.city }}</p>
+                    <img class="picture" src="http://openweathermap.org/img/w/{{ x.icon }}.png">
+                </div>
+                <div class="move">
+                    <p>{{ x.temp }} °C</p>
+                    <p>Feels like: {{ x.feels_like}} °C</p>
+                    <p>{{ x.description }}</p>
+                    <p>{{ x.humidity }} %</p>
+                    <p>{{ x.pressure }} hPa</p>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </body>
+</html>
